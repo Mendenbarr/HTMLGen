@@ -6,8 +6,10 @@
 package core;
 
 import components.*;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.text.Caret;
 
 /**
  *
@@ -36,8 +38,6 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jToolBar1 = new javax.swing.JToolBar();
         SaveButton = new javax.swing.JButton();
         LinkButton = new javax.swing.JButton();
@@ -45,15 +45,11 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener{
         TableButton = new javax.swing.JButton();
         JumpListButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        mainTXT = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HTML Generator");
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
         jToolBar1.setRollover(true);
 
@@ -94,9 +90,9 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener{
 
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane1.setViewportView(jTextArea2);
+        mainTXT.setColumns(20);
+        mainTXT.setRows(5);
+        jScrollPane1.setViewportView(mainTXT);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -150,10 +146,8 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener{
     private javax.swing.JButton SaveButton;
     private javax.swing.JButton TableButton;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JTextArea mainTXT;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -164,5 +158,9 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener{
         else if (source==LinkButton) new LinkGenerator().setVisible(true);
         else if (source==SaveButton) new JumpListGenerator().setVisible(true);
         else if (source==TableButton) new TableGenerator().setVisible(true);
+    }
+    // Inserts text at the current curser position
+    public void addText(String text) {
+        mainTXT.insert(text, mainTXT.getCaretPosition());
     }
 }
