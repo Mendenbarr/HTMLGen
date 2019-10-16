@@ -15,30 +15,23 @@ import java.io.*;
  *
  * @author 00220682
  */
-public class TableGenerator extends javax.swing.JFrame implements ActionListener {
-
-    private final String boilerplate = "<table>\n"
-            + "\t<tr>\n"
-            + "\t\t<th>First name</th>\n"
-            + "\t\t<th>Last name</th>\n"
-            + "\t\t<th>Age</th>\n"
-            + "\t</tr>\n"
-            + "\t<tr>\n"
-            + "\t\t<td>Jill</td>\n"
-            + "\t\t<td>Smith</td>\n"
-            + "\t\t<td>50</td>\n"
-            + "\t</tr>\n"
-            + "\t<tr>\n"
-            + "\t\t<td>Eve</td>\n"
-            + "\t\t<td>Jackson</td>\n"
-            + "\t\t<td>94</td>\n"
-            + "\t</tr>\n"
-            + "</table>";
+public class JumpListGenerator extends javax.swing.JFrame implements ActionListener {
+    private final String boilerplate = "<!DOCTYPE html>\n" +
+"<html>\n" +
+"    <head>\n" +
+"        <title>Example Jump List</title>\n" +
+"    </head>\n" +
+"    <body>\n" +
+"        <select onChange=\"location.href=this[selectedIndex].value\">\n" +
+"            \n" +
+"        </select>\n" +
+"    </body>\n" +
+"</html>";
 
     /**
      * Creates new form JumpListGenerator
      */
-    public TableGenerator() {
+    public JumpListGenerator() {
         initComponents();
         txtDoc.setText(boilerplate);
         btnReset.addActionListener(this);
@@ -57,9 +50,9 @@ public class TableGenerator extends javax.swing.JFrame implements ActionListener
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        rowText = new javax.swing.JTextField();
+        txtDisplay = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        colText = new javax.swing.JTextField();
+        txtURL = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -69,24 +62,23 @@ public class TableGenerator extends javax.swing.JFrame implements ActionListener
         txtDoc = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Table Generator");
+        setTitle("Jump List Generator");
         getContentPane().setLayout(new java.awt.BorderLayout(0, 5));
 
-        jPanel1.setLayout(new java.awt.GridLayout(3, 4, 5, 5));
+        jPanel1.setLayout(new java.awt.GridLayout(3, 2, 5, 5));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Number of Rows");
-        jLabel1.setToolTipText("");
+        jLabel1.setText("Display Text");
         jPanel1.add(jLabel1);
-        jPanel1.add(rowText);
+        jPanel1.add(txtDisplay);
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Number of Columns");
+        jLabel2.setText("URL");
         jPanel1.add(jLabel2);
-        jPanel1.add(colText);
+        jPanel1.add(txtURL);
         jPanel1.add(jLabel3);
 
-        btnAdd.setText("Create Table");
+        btnAdd.setText("Add To Select");
         jPanel1.add(btnAdd);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
@@ -103,12 +95,11 @@ public class TableGenerator extends javax.swing.JFrame implements ActionListener
 
         txtDoc.setColumns(20);
         txtDoc.setRows(5);
-        txtDoc.setTabSize(4);
         jScrollPane1.setViewportView(txtDoc);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        setSize(new java.awt.Dimension(592, 466));
+        setSize(new java.awt.Dimension(592, 463));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -129,21 +120,20 @@ public class TableGenerator extends javax.swing.JFrame implements ActionListener
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TableGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JumpListGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TableGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JumpListGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TableGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JumpListGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TableGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JumpListGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TableGenerator().setVisible(true);
+                new JumpListGenerator().setVisible(true);
             }
         });
     }
@@ -152,104 +142,64 @@ public class TableGenerator extends javax.swing.JFrame implements ActionListener
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSave;
-    private javax.swing.JTextField colText;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField rowText;
+    private javax.swing.JTextField txtDisplay;
     private javax.swing.JTextArea txtDoc;
+    private javax.swing.JTextField txtURL;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void actionPerformed(ActionEvent ae) {
         Object source = ae.getSource();
-        if (source == btnReset) {
+        if(source==btnReset){
             startOver();
-        } else if (source == btnAdd) {
-            createTable();
-        } else if (source == btnSave) {
+        }else if(source==btnAdd){
+            addOption();
+        }else if(source==btnSave){
             save();
         }
     }
-
-    public void startOver() {
+    
+    public void startOver(){
         txtDoc.setText(boilerplate);
     }
-
-    public void createTable() {
-        if (rowText.getText().length() == 0) {
+    
+    public void addOption(){
+        if(txtDisplay.getText().length()==0)
             return;
-        }
-        if (colText.getText().length() == 0) {
-            return;
-        }
-        try {
-            txtDoc.setText("");
+        try{
             StringBuilder sb = new StringBuilder(64);
-            //At the front of every table
-            sb.append("<table>\n");
-            //Nested for loop, starting with every row
-            int row = Integer.parseInt(rowText.getText());
-            int col = Integer.parseInt(colText.getText());
-            for (int r = 1;r<=row;r++){
-                System.out.println(r);
-                System.out.println(row);
-                //Inside loop for every column in this particular row
-                sb.append("\t<tr>\n");
-                for (int c =1;c<=col;c++){
-                    String option = JOptionPane.showInputDialog("Please enter the "+numberFormatter(c)
-                            +" element of the "+numberFormatter(r)+" row.");
-                    sb.append("\t\t<td>");
-                    sb.append("\t\t"+option);
-                    sb.append("\t\t</td>\n");
-                }
-                sb.append("\t</tr>\n");
-            }
-            //At the end of every table
-            sb.append("</table>\n");
-            txtDoc.insert(sb.toString(), 0);
-        } catch (Exception e) {
+            sb.append("<option value=\"");
+            sb.append(txtURL.getText());
+            sb.append("\">");
+            sb.append(txtDisplay.getText());
+            sb.append("</option>\n\n");
+            txtDoc.insert(sb.toString(), txtDoc.getText().indexOf("</select>")-1);
+            txtURL.setText("");
+            txtDisplay.setText("");
+        }catch(Exception e){
             JOptionPane.showMessageDialog(this, "Unable to add option - missing </select>");
         }
     }
-
-    public void save() {
+    
+    public void save(){
         JFileChooser chooser = new JFileChooser();
         int retValue = chooser.showSaveDialog(this);
-        if (retValue == JFileChooser.APPROVE_OPTION) {
+        if(retValue == JFileChooser.APPROVE_OPTION){
             File f = chooser.getSelectedFile();
-            try {
+            try{
                 FileOutputStream fos = new FileOutputStream(f);
                 String str = txtDoc.getText();
                 fos.write(str.getBytes());
                 fos.close();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Unable to save file.");
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(this,"Unable to save file.");
             }
         }
-    }
-    // Properly formats numbers in the style of
-    // 1st 2nd 3rd 4th ect
-    public String numberFormatter(int i){
-        String append;
-        switch (i) {
-            case 1:
-                append = "st";
-                break;
-            case 2:
-                append = "nd";
-                break;
-            case 3:
-                append = "rd";
-                break;
-            default:
-                append = "th";
-                break;
-        }
-        String result = i + append;
-        return result;
     }
 }

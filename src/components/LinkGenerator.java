@@ -61,7 +61,7 @@ public class LinkGenerator extends javax.swing.JFrame implements ActionListener 
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDoc = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Link Generator");
         getContentPane().setLayout(new java.awt.BorderLayout(0, 5));
 
@@ -79,7 +79,6 @@ public class LinkGenerator extends javax.swing.JFrame implements ActionListener 
         jPanel1.add(jLabel3);
 
         btnAdd.setText("Add Link");
-        btnAdd.setActionCommand("Add Link");
         jPanel1.add(btnAdd);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);

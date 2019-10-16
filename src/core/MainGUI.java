@@ -5,7 +5,7 @@
  */
 package core;
 
-import components.LinkGenerator;
+import components.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -24,6 +24,7 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener{
         JumpListButton.addActionListener(this);
         LinkButton.addActionListener(this);
         TableButton.addActionListener(this);
+        SaveButton.addActionListener(this);
     }
 
     /**
@@ -158,10 +159,10 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent ae) {
         Object source = ae.getSource();
-        if (source==ImageButton) return;
-        else if (source==JumpListButton) new LinkGenerator().setVisible(true);
-        else if (source==LinkButton) return;
-        else if (source==SaveButton) return;
-        else if (source==TableButton) return;
+        if (source==ImageButton) new ImageGenerator().setVisible(true);
+        else if (source==JumpListButton) new JumpListGenerator().setVisible(true);
+        else if (source==LinkButton) new LinkGenerator().setVisible(true);
+        else if (source==SaveButton) new JumpListGenerator().setVisible(true);
+        else if (source==TableButton) new TableGenerator().setVisible(true);
     }
 }
