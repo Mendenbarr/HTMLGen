@@ -15,23 +15,23 @@ import java.io.*;
  *
  * @author 00220682
  */
-public class JumpListGenerator extends javax.swing.JFrame implements ActionListener {
-    private final String boilerplate = "<!DOCTYPE html>\n" +
-"<html>\n" +
-"    <head>\n" +
-"        <title>Example Jump List</title>\n" +
-"    </head>\n" +
-"    <body>\n" +
-"        <select onChange=\"location.href=this[selectedIndex].value\">\n" +
-"            \n" +
-"        </select>\n" +
-"    </body>\n" +
-"</html>";
+public class LinkGenerator extends javax.swing.JFrame implements ActionListener {
+    private final String boilerplate = "";
+//"<html>\n" +
+////"    <head>\n" +
+////"        <title>Example Jump List</title>\n" +
+////"    </head>\n" +
+////"    <body>\n" +
+////"        <select>\n" +
+////"            \n" +
+////"        </select>\n" +
+////"    </body>\n" +
+//"</html>";
 
     /**
      * Creates new form JumpListGenerator
      */
-    public JumpListGenerator() {
+    public LinkGenerator() {
         initComponents();
         txtDoc.setText(boilerplate);
         btnReset.addActionListener(this);
@@ -62,7 +62,7 @@ public class JumpListGenerator extends javax.swing.JFrame implements ActionListe
         txtDoc = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Jump List Generator");
+        setTitle("Link Generator");
         getContentPane().setLayout(new java.awt.BorderLayout(0, 5));
 
         jPanel1.setLayout(new java.awt.GridLayout(3, 2, 5, 5));
@@ -78,7 +78,8 @@ public class JumpListGenerator extends javax.swing.JFrame implements ActionListe
         jPanel1.add(txtURL);
         jPanel1.add(jLabel3);
 
-        btnAdd.setText("Add To Select");
+        btnAdd.setText("Add Link");
+        btnAdd.setActionCommand("Add Link");
         jPanel1.add(btnAdd);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
@@ -120,20 +121,21 @@ public class JumpListGenerator extends javax.swing.JFrame implements ActionListe
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JumpListGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LinkGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JumpListGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LinkGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JumpListGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LinkGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JumpListGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LinkGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JumpListGenerator().setVisible(true);
+                new LinkGenerator().setVisible(true);
             }
         });
     }
@@ -174,12 +176,12 @@ public class JumpListGenerator extends javax.swing.JFrame implements ActionListe
             return;
         try{
             StringBuilder sb = new StringBuilder(64);
-            sb.append("<option value=\"");
+            sb.append("<a href=\"");
             sb.append(txtURL.getText());
             sb.append("\">");
             sb.append(txtDisplay.getText());
-            sb.append("</option>\n\n");
-            txtDoc.insert(sb.toString(), txtDoc.getText().indexOf("</select>")-1);
+            sb.append("</a>\n\n");
+            txtDoc.insert(sb.toString(), 0);
             txtURL.setText("");
             txtDisplay.setText("");
         }catch(Exception e){
