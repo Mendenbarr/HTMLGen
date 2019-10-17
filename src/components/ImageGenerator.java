@@ -5,8 +5,12 @@
  */
 package components;
 
+import core.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,7 +21,7 @@ public class ImageGenerator extends javax.swing.JFrame implements ActionListener
     private final String imagePlate=  "<!DOCTYPE html>\n" +
 "<html>\n" +
 "    <head>\n" +
-"        <title>Example Jump List</title>\n" +
+"        <title>Image tag generator</title>\n" +
 "    </head>\n" +
 "    <body>\n" +
 "        <img onChange=\"location.href=this[selectedIndex].value\">\n" +
@@ -33,6 +37,11 @@ public class ImageGenerator extends javax.swing.JFrame implements ActionListener
      */
     public ImageGenerator() {
         initComponents();
+         txtDoc.setText(imagePlate);
+        btnReset.addActionListener(this);
+        btnAdd.addActionListener(this);
+        btnSave.addActionListener(this);
+        
     }
 
     /**
@@ -44,33 +53,23 @@ public class ImageGenerator extends javax.swing.JFrame implements ActionListener
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtDisplay = new javax.swing.JTextField();
         txtURL = new javax.swing.JTextField();
         txtAlt = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDoc = new javax.swing.JTextArea();
         btnReset = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jLabel1.setText("Display Text");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel2.setText("URL");
 
         jLabel3.setText("Alt tag");
 
-        txtDisplay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDisplayActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Add to select");
+        btnAdd.setText("Add to select");
 
         txtDoc.setColumns(20);
         txtDoc.setRows(5);
@@ -78,7 +77,7 @@ public class ImageGenerator extends javax.swing.JFrame implements ActionListener
 
         btnReset.setText("Start Over");
 
-        jButton3.setText("Save");
+        btnSave.setText("Save");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,59 +85,48 @@ public class ImageGenerator extends javax.swing.JFrame implements ActionListener
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
-                            .addComponent(txtDisplay)
-                            .addComponent(txtURL)
-                            .addComponent(txtAlt))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnReset)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnReset)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSave))
+                    .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(58, 58, 58)
+                            .addComponent(txtURL, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtURL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
+                    .addComponent(txtURL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
                     .addComponent(txtAlt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnAdd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReset)
-                    .addComponent(jButton3))
-                .addContainerGap(17, Short.MAX_VALUE))
+                    .addComponent(btnSave))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDisplayActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDisplayActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,15 +165,13 @@ public class ImageGenerator extends javax.swing.JFrame implements ActionListener
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnReset;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtAlt;
-    private javax.swing.JTextField txtDisplay;
     private javax.swing.JTextArea txtDoc;
     private javax.swing.JTextField txtURL;
     // End of variables declaration//GEN-END:variables
@@ -195,11 +181,11 @@ public class ImageGenerator extends javax.swing.JFrame implements ActionListener
         Object source = e.getSource();
         if(source==btnReset){
             startOver();
-//        }else if(source==btnAdd){
-//            addOption();
-//        }else if(source==btnSave){
-//            save();
-            }
+        }else if(source==btnAdd){
+            addOption();
+        }else if(source==btnSave){
+            save();
+        }
         
     }
     public void startOver(){
@@ -207,21 +193,46 @@ public class ImageGenerator extends javax.swing.JFrame implements ActionListener
     }
     
     public void addOption(){
-        if(txtDisplay.getText().length()==0)
+        if(txtURL.getText().length()==0)
             return;
         try{
             StringBuilder sb = new StringBuilder(64);
-            sb.append("\n<a href=\"");
+            sb.append("\n<img href=\"");
             sb.append(txtURL.getText());
-            sb.append("\">");
-            sb.append(txtDisplay.getText());
-            sb.append("</option>\n\n");
-            txtDoc.insert(sb.toString(), txtDoc.getText().indexOf("</select>")-1);
+            sb.append(" alt=\"");
+            sb.append(txtAlt.getText());
+            sb.append("\"/>\n\n"); 
+            //I changed what it's looking for, from </option> to </body>
+            //As well as changed the handler
+            txtDoc.insert(sb.toString(), txtDoc.getText().indexOf("</body>")-1);
             txtURL.setText("");
-            txtDisplay.setText("");
+            txtAlt.setText("");
+        
         }catch(Exception e){
-            JOptionPane.showMessageDialog(this, "Unable to add option - missing </select>");
+            JOptionPane.showMessageDialog(this, "Unable to add option - missing </body>");
         }
     }
     
+    public void save(){
+         JFileChooser chooser = new JFileChooser();
+        
+        int retValue = chooser.showSaveDialog(this);
+        if(retValue==JFileChooser.APPROVE_OPTION){
+            File f = chooser.getSelectedFile();
+            try{
+                FileOutputStream fos = new FileOutputStream(f);
+                String str = txtDoc.getText();
+                fos.write(str.getBytes());
+                //turns the string into binary data
+                fos.close();
+                //if you don't close the output stream, you can run ou of memory
+                
+                
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(this, "Unable to save fie");
+                
+            }
+    }
+ 
+    }
 }
