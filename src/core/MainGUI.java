@@ -49,7 +49,6 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener{
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HTML Generator");
-        getContentPane().setLayout(new java.awt.BorderLayout());
 
         jToolBar1.setRollover(true);
 
@@ -92,6 +91,8 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener{
 
         mainTXT.setColumns(20);
         mainTXT.setRows(5);
+        mainTXT.setTabSize(4);
+        mainTXT.setWrapStyleWord(true);
         jScrollPane1.setViewportView(mainTXT);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -154,10 +155,10 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener{
     public void actionPerformed(ActionEvent ae) {
         Object source = ae.getSource();
         if (source==ImageButton) new ImageGenerator().setVisible(true);
-        else if (source==JumpListButton) new JumpListGenerator().setVisible(true);
+        else if (source==JumpListButton) new JumpListGenerator(this).setVisible(true);
         else if (source==LinkButton) new LinkGenerator().setVisible(true);
-        else if (source==SaveButton) new JumpListGenerator().setVisible(true);
-        else if (source==TableButton) new TableGenerator().setVisible(true);
+        else if (source==SaveButton) addText("Test");
+        else if (source==TableButton) new TableGenerator(this).setVisible(true);
     }
     // Inserts text at the current curser position
     public void addText(String text) {

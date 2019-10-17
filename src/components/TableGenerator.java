@@ -17,7 +17,8 @@ import java.io.*;
  * @author 00220682
  */
 public class TableGenerator extends javax.swing.JFrame implements ActionListener {
-
+    
+    private MainGUI parent;
     private final String boilerplate = "<table>\n"
             + "\t<tr>\n"
             + "\t\t<th>First name</th>\n"
@@ -46,6 +47,12 @@ public class TableGenerator extends javax.swing.JFrame implements ActionListener
         btnCreate.addActionListener(this);
         btnSave.addActionListener(this);
         btnAdd.addActionListener(this);
+    }
+    
+    public TableGenerator(MainGUI parent) {
+        this();
+        this.parent = parent;
+        
     }
 
     /**
@@ -94,7 +101,7 @@ public class TableGenerator extends javax.swing.JFrame implements ActionListener
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
-        jPanel2.setLayout(new java.awt.FlowLayout(2));
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         btnAdd.setText("Add Table");
         jPanel2.add(btnAdd);
@@ -102,7 +109,7 @@ public class TableGenerator extends javax.swing.JFrame implements ActionListener
         btnReset.setText("Start Over");
         jPanel2.add(btnReset);
 
-        btnSave.setText("Save");
+        btnSave.setText("Save to File");
         jPanel2.add(btnSave);
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_END);
@@ -212,8 +219,8 @@ public class TableGenerator extends javax.swing.JFrame implements ActionListener
                     String option = JOptionPane.showInputDialog("Please enter the "+numberFormatter(c)
                             +" element of the "+numberFormatter(r)+" row.");
                     sb.append("\t\t<td>");
-                    sb.append("\t\t"+option);
-                    sb.append("\t\t</td>\n");
+                    sb.append(""+option);
+                    sb.append("</td>\n");
                 }
                 sb.append("\t</tr>\n");
             }
@@ -221,7 +228,7 @@ public class TableGenerator extends javax.swing.JFrame implements ActionListener
             sb.append("</table>\n");
             txtDoc.insert(sb.toString(), 0);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Unable to add option - missing </select>");
+            JOptionPane.showMessageDialog(this, "An error has occurred");
         }
     }
 
@@ -263,7 +270,7 @@ public class TableGenerator extends javax.swing.JFrame implements ActionListener
     }
 
     private void add() {
-        //addText("test");
-                
+        parent.addText(txtDoc.getText());
+        this.dispose();       
         }
 }

@@ -5,6 +5,7 @@
  */
 package components;
 
+import core.MainGUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFileChooser;
@@ -16,6 +17,7 @@ import java.io.*;
  * @author 00220682
  */
 public class JumpListGenerator extends javax.swing.JFrame implements ActionListener {
+    private MainGUI parent;
     private final String boilerplate = "<!DOCTYPE html>\n" +
 "<html>\n" +
 "    <head>\n" +
@@ -37,6 +39,13 @@ public class JumpListGenerator extends javax.swing.JFrame implements ActionListe
         btnReset.addActionListener(this);
         btnAdd.addActionListener(this);
         btnSave.addActionListener(this);
+        btnFin.addActionListener(this);
+    }
+    
+        public JumpListGenerator(MainGUI parent) {
+            this();
+            this.parent = parent;
+            
     }
 
     /**
@@ -56,6 +65,7 @@ public class JumpListGenerator extends javax.swing.JFrame implements ActionListe
         jLabel3 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        btnFin = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -83,12 +93,15 @@ public class JumpListGenerator extends javax.swing.JFrame implements ActionListe
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
-        jPanel2.setLayout(new java.awt.FlowLayout(2));
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        btnFin.setText("Add Jump List");
+        jPanel2.add(btnFin);
 
         btnReset.setText("Start Over");
         jPanel2.add(btnReset);
 
-        btnSave.setText("Save");
+        btnSave.setText("Save to File");
         jPanel2.add(btnSave);
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_END);
@@ -140,6 +153,7 @@ public class JumpListGenerator extends javax.swing.JFrame implements ActionListe
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnFin;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
@@ -162,6 +176,9 @@ public class JumpListGenerator extends javax.swing.JFrame implements ActionListe
             addOption();
         }else if(source==btnSave){
             save();
+        }
+        else if (source==btnFin){
+            add();
         }
     }
     
@@ -202,4 +219,9 @@ public class JumpListGenerator extends javax.swing.JFrame implements ActionListe
             }
         }
     }
+    
+    private void add() {
+        parent.addText(txtDoc.getText());
+        this.dispose();       
+        }
 }
