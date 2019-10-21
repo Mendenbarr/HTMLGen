@@ -8,9 +8,7 @@ package components;
 import core.MainGUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import java.io.*;
 
 /**
  *
@@ -34,7 +32,7 @@ public class TableGenerator extends JFrameHTMLGen implements ActionListener {
             + "\t\t<td>Jackson</td>\n"
             + "\t\t<td>94</td>\n"
             + "\t</tr>\n"
-            + "</table>";
+            + "</table>\n";
 
     /**
      * Creates new form JumpListGenerator

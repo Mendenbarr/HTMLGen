@@ -8,9 +8,7 @@ package components;
 import core.MainGUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import java.io.*;
 
 /**
  *
@@ -18,17 +16,10 @@ import java.io.*;
  */
 public class JumpListGenerator extends JFrameHTMLGen implements ActionListener {
     
-    private final String boilerplate = "<!DOCTYPE html>\n"
-            + "<html>\n"
-            + "    <head>\n"
-            + "        <title>Example Jump List</title>\n"
-            + "    </head>\n"
-            + "    <body>\n"
-            + "        <select onChange=\"location.href=this[selectedIndex].value\">\n"
+    private final String boilerplate = ""
+            + "<select onChange=\"location.href=this[selectedIndex].value\">\n"
             + "            \n"
-            + "        </select>\n"
-            + "    </body>\n"
-            + "</html>";
+            + "        </select>\n";
 
     /**
      * Creates new form JumpListGenerator

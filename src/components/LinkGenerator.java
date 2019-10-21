@@ -8,9 +8,7 @@ package components;
 import core.MainGUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import java.io.*;
 
 /**
  *

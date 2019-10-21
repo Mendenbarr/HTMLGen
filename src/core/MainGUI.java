@@ -6,16 +6,17 @@
 package core;
 
 import components.*;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.text.Caret;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  *
  * @author 01048750
  */
-public class MainGUI extends javax.swing.JFrame implements ActionListener{
+public class MainGUI extends JFrameHTMLGen implements ActionListener {
 
     /**
      * Creates new form MainGUI
@@ -27,6 +28,29 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener{
         LinkButton.addActionListener(this);
         TableButton.addActionListener(this);
         SaveButton.addActionListener(this);
+        super.txtDoc = this.txtDoc;
+        super.boilerplate = importHTML("src\\Examples\\template.html");
+        super.startOver();
+        
+    }
+
+    
+    //Imports the base file template from a html file with name name.
+    private String importHTML(String name) {
+        System.out.println("Running importHTML");
+        StringBuilder contentBuilder = new StringBuilder();
+        try {
+            BufferedReader in = new BufferedReader(new FileReader(name));
+            String str;
+            while ((str = in.readLine()) != null) {
+                contentBuilder.append(str + "\n");
+            }
+            in.close();
+        } catch (IOException e) {
+            System.out.println("Error in importHTML");
+            System.out.println(e.getMessage());
+        }
+        return contentBuilder.toString();
     }
 
     /**
@@ -45,7 +69,7 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener{
         TableButton = new javax.swing.JButton();
         JumpListButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        mainTXT = new javax.swing.JTextArea();
+        txtDoc = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HTML Generator");
@@ -89,15 +113,15 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener{
 
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
 
-        mainTXT.setColumns(20);
-        mainTXT.setRows(5);
-        mainTXT.setTabSize(4);
-        mainTXT.setWrapStyleWord(true);
-        jScrollPane1.setViewportView(mainTXT);
+        txtDoc.setColumns(20);
+        txtDoc.setRows(5);
+        txtDoc.setTabSize(4);
+        txtDoc.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(txtDoc);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        setSize(new java.awt.Dimension(616, 339));
+        setSize(new java.awt.Dimension(1087, 841));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -148,20 +172,27 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener{
     private javax.swing.JButton TableButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JTextArea mainTXT;
+    private javax.swing.JTextArea txtDoc;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void actionPerformed(ActionEvent ae) {
         Object source = ae.getSource();
-        if (source==ImageButton) new ImageGenerator(this).setVisible(true);
-        else if (source==JumpListButton) new JumpListGenerator(this).setVisible(true);
-        else if (source==LinkButton) new LinkGenerator(this).setVisible(true);
-        else if (source==SaveButton) addText("Test");
-        else if (source==TableButton) new TableGenerator(this).setVisible(true);
+        if (source == ImageButton) {
+            new ImageGenerator(this).setVisible(true);
+        } else if (source == JumpListButton) {
+            new JumpListGenerator(this).setVisible(true);
+        } else if (source == LinkButton) {
+            new LinkGenerator(this).setVisible(true);
+        } else if (source == SaveButton) {
+            save();
+        } else if (source == TableButton) {
+            new TableGenerator(this).setVisible(true);
+        }
     }
+
     // Inserts text at the current curser position
     public void addText(String text) {
-        mainTXT.insert(text, mainTXT.getCaretPosition());
+        txtDoc.insert(text, txtDoc.getCaretPosition());
     }
 }
