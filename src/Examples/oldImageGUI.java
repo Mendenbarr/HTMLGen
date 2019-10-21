@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core;
+package Examples;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  *
  * @author byronnajera
  */
-public class imageGUI extends javax.swing.JFrame implements ActionListener{
+public class oldImageGUI extends javax.swing.JFrame implements ActionListener{
     private final String imagePlate=  "<!DOCTYPE html>\n" +
 "<html>\n" +
 "    <head>\n" +
@@ -34,7 +34,7 @@ public class imageGUI extends javax.swing.JFrame implements ActionListener{
     /**
      * Creates new form imageGUI
      */
-    public imageGUI() {
+    public oldImageGUI() {
         initComponents();
          txtDoc.setText(imagePlate);
         btnReset.addActionListener(this);
@@ -144,20 +144,21 @@ public class imageGUI extends javax.swing.JFrame implements ActionListener{
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(imageGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(oldImageGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(imageGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(oldImageGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(imageGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(oldImageGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(imageGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(oldImageGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new imageGUI().setVisible(true);
+                new oldImageGUI().setVisible(true);
             }
         });
     }

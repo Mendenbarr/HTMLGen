@@ -64,7 +64,8 @@ public class ImageGenerator extends javax.swing.JFrame implements ActionListener
         btnReset = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Image Generator");
 
         jLabel2.setText("Img URL");
 
