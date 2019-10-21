@@ -135,6 +135,7 @@ public class ImageGenerator extends JFrameHTMLGen implements ActionListener {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
