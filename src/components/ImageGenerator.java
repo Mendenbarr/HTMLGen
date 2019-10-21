@@ -18,7 +18,8 @@ import javax.swing.JOptionPane;
  * @author byronnajera
  */
 public class ImageGenerator extends javax.swing.JFrame implements ActionListener{
-    private final String imagePlate=  "<!DOCTYPE html>\n" +
+    private final String imagePlate= "";
+        /*    "<!DOCTYPE html>\n" +
 "<html>\n" +
 "    <head>\n" +
 "        <title>Image tag generator</title>\n" +
@@ -28,7 +29,7 @@ public class ImageGenerator extends javax.swing.JFrame implements ActionListener
 "            \n" +
 "        </select>\n" +
 "    </body>\n" +
-"</html>";
+"</html>"; */
         
     
 
@@ -65,7 +66,7 @@ public class ImageGenerator extends javax.swing.JFrame implements ActionListener
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setText("URL");
+        jLabel2.setText("Img URL");
 
         jLabel3.setText("Alt tag");
 
@@ -199,12 +200,13 @@ public class ImageGenerator extends javax.swing.JFrame implements ActionListener
             StringBuilder sb = new StringBuilder(64);
             sb.append("\n<img href=\"");
             sb.append(txtURL.getText());
-            sb.append(" alt=\"");
+            sb.append("\" alt=\"");
             sb.append(txtAlt.getText());
             sb.append("\"/>\n\n"); 
             //I changed what it's looking for, from </option> to </body>
             //As well as changed the handler
-            txtDoc.insert(sb.toString(), txtDoc.getText().indexOf("</body>")-1);
+          //  txtDoc.insert(sb.toString(), txtDoc.getText().indexOf("</body>")-1);
+          txtDoc.insert(sb.toString(), 0);
             txtURL.setText("");
             txtAlt.setText("");
         
@@ -229,7 +231,7 @@ public class ImageGenerator extends javax.swing.JFrame implements ActionListener
                 
                 
             }catch(Exception e){
-                JOptionPane.showMessageDialog(this, "Unable to save fie");
+                JOptionPane.showMessageDialog(this, "Unable to save file");
                 
             }
     }
