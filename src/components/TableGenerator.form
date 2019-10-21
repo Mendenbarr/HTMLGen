@@ -78,7 +78,7 @@
         <Property name="alignment" type="int" value="2"/>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="btnAdd">
+        <Component class="javax.swing.JButton" name="btnFin">
           <Properties>
             <Property name="text" type="java.lang.String" value="Add Table"/>
           </Properties>

@@ -46,7 +46,7 @@ public class TableGenerator extends javax.swing.JFrame implements ActionListener
         btnReset.addActionListener(this);
         btnCreate.addActionListener(this);
         btnSave.addActionListener(this);
-        btnAdd.addActionListener(this);
+        btnFin.addActionListener(this);
     }
     
     public TableGenerator(MainGUI parent) {
@@ -72,7 +72,7 @@ public class TableGenerator extends javax.swing.JFrame implements ActionListener
         jLabel3 = new javax.swing.JLabel();
         btnCreate = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        btnAdd = new javax.swing.JButton();
+        btnFin = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -103,8 +103,8 @@ public class TableGenerator extends javax.swing.JFrame implements ActionListener
 
         jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        btnAdd.setText("Add Table");
-        jPanel2.add(btnAdd);
+        btnFin.setText("Add Table");
+        jPanel2.add(btnFin);
 
         btnReset.setText("Start Over");
         jPanel2.add(btnReset);
@@ -162,8 +162,8 @@ public class TableGenerator extends javax.swing.JFrame implements ActionListener
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCreate;
+    private javax.swing.JButton btnFin;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSave;
     private javax.swing.JTextField colText;
@@ -186,7 +186,7 @@ public class TableGenerator extends javax.swing.JFrame implements ActionListener
             createTable();
         } else if (source == btnSave) {
             save();
-        } else if (source == btnAdd) {
+        } else if (source == btnFin) {
             add();
         }
     }

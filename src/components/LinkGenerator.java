@@ -5,6 +5,7 @@
  */
 package components;
 
+import core.MainGUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFileChooser;
@@ -16,6 +17,7 @@ import java.io.*;
  * @author 00220682
  */
 public class LinkGenerator extends javax.swing.JFrame implements ActionListener {
+    private MainGUI parent;
     private final String boilerplate = "";
 //"<html>\n" +
 ////"    <head>\n" +
@@ -37,6 +39,12 @@ public class LinkGenerator extends javax.swing.JFrame implements ActionListener 
         btnReset.addActionListener(this);
         btnAdd.addActionListener(this);
         btnSave.addActionListener(this);
+        btnFin.addActionListener(this);
+    }
+    
+    public LinkGenerator(MainGUI parent){
+        this();
+        this.parent = parent;
     }
 
     /**
@@ -56,6 +64,7 @@ public class LinkGenerator extends javax.swing.JFrame implements ActionListener 
         jLabel3 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        btnFin = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -78,17 +87,20 @@ public class LinkGenerator extends javax.swing.JFrame implements ActionListener 
         jPanel1.add(txtURL);
         jPanel1.add(jLabel3);
 
-        btnAdd.setText("Add Link");
+        btnAdd.setText("Create Link");
         jPanel1.add(btnAdd);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
-        jPanel2.setLayout(new java.awt.FlowLayout(2));
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        btnFin.setText("Add Link");
+        jPanel2.add(btnFin);
 
         btnReset.setText("Start Over");
         jPanel2.add(btnReset);
 
-        btnSave.setText("Save");
+        btnSave.setText("Save to File");
         jPanel2.add(btnSave);
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_END);
@@ -141,6 +153,7 @@ public class LinkGenerator extends javax.swing.JFrame implements ActionListener 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnFin;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
@@ -157,23 +170,26 @@ public class LinkGenerator extends javax.swing.JFrame implements ActionListener 
     @Override
     public void actionPerformed(ActionEvent ae) {
         Object source = ae.getSource();
-        if(source==btnReset){
+        if (source == btnReset) {
             startOver();
-        }else if(source==btnAdd){
+        } else if (source == btnAdd) {
             addOption();
-        }else if(source==btnSave){
+        } else if (source == btnSave) {
             save();
+        } else if (source == btnFin) {
+            add();
         }
     }
-    
-    public void startOver(){
+
+    public void startOver() {
         txtDoc.setText(boilerplate);
     }
-    
-    public void addOption(){
-        if(txtDisplay.getText().length()==0)
+
+    public void addOption() {
+        if (txtDisplay.getText().length() == 0) {
             return;
-        try{
+        }
+        try {
             StringBuilder sb = new StringBuilder(64);
             sb.append("<a href=\"");
             sb.append(txtURL.getText());
@@ -183,24 +199,29 @@ public class LinkGenerator extends javax.swing.JFrame implements ActionListener 
             txtDoc.insert(sb.toString(), 0);
             txtURL.setText("");
             txtDisplay.setText("");
-        }catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Unable to add option - missing </select>");
         }
     }
-    
-    public void save(){
+
+    public void save() {
         JFileChooser chooser = new JFileChooser();
         int retValue = chooser.showSaveDialog(this);
-        if(retValue == JFileChooser.APPROVE_OPTION){
+        if (retValue == JFileChooser.APPROVE_OPTION) {
             File f = chooser.getSelectedFile();
-            try{
+            try {
                 FileOutputStream fos = new FileOutputStream(f);
                 String str = txtDoc.getText();
                 fos.write(str.getBytes());
                 fos.close();
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(this,"Unable to save file.");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Unable to save file.");
             }
         }
+    }
+
+    private void add() {
+        parent.addText(txtDoc.getText());
+        this.dispose();
     }
 }
