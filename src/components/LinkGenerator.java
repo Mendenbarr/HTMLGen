@@ -16,8 +16,7 @@ import java.io.*;
  *
  * @author 00220682
  */
-public class LinkGenerator extends javax.swing.JFrame implements ActionListener {
-    private MainGUI parent;
+public class LinkGenerator extends JFrameHTMLGen implements ActionListener {
     private final String boilerplate = "";
 //"<html>\n" +
 ////"    <head>\n" +
@@ -41,10 +40,13 @@ public class LinkGenerator extends javax.swing.JFrame implements ActionListener 
         btnSave.addActionListener(this);
         btnFin.addActionListener(this);
     }
-    
-    public LinkGenerator(MainGUI parent){
+
+    //Sets up the references references
+    public LinkGenerator(MainGUI parent) {
         this();
         this.parent = parent;
+        super.txtDoc = this.txtDoc;
+        super.boilerplate = this.boilerplate;
     }
 
     /**
@@ -181,10 +183,6 @@ public class LinkGenerator extends javax.swing.JFrame implements ActionListener 
         }
     }
 
-    public void startOver() {
-        txtDoc.setText(boilerplate);
-    }
-
     public void addOption() {
         if (txtDisplay.getText().length() == 0) {
             return;
@@ -204,24 +202,4 @@ public class LinkGenerator extends javax.swing.JFrame implements ActionListener 
         }
     }
 
-    public void save() {
-        JFileChooser chooser = new JFileChooser();
-        int retValue = chooser.showSaveDialog(this);
-        if (retValue == JFileChooser.APPROVE_OPTION) {
-            File f = chooser.getSelectedFile();
-            try {
-                FileOutputStream fos = new FileOutputStream(f);
-                String str = txtDoc.getText();
-                fos.write(str.getBytes());
-                fos.close();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Unable to save file.");
-            }
-        }
-    }
-
-    private void add() {
-        parent.addText(txtDoc.getText());
-        this.dispose();
-    }
 }

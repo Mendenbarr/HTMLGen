@@ -16,9 +16,8 @@ import java.io.*;
  *
  * @author 00220682
  */
-public class TableGenerator extends javax.swing.JFrame implements ActionListener {
-    
-    private MainGUI parent;
+public class TableGenerator extends JFrameHTMLGen implements ActionListener {
+
     private final String boilerplate = "<table>\n"
             + "\t<tr>\n"
             + "\t\t<th>First name</th>\n"
@@ -48,11 +47,13 @@ public class TableGenerator extends javax.swing.JFrame implements ActionListener
         btnSave.addActionListener(this);
         btnFin.addActionListener(this);
     }
-    
+
+    //Sets up the references references
     public TableGenerator(MainGUI parent) {
         this();
         this.parent = parent;
-        
+        super.txtDoc = this.txtDoc;
+        super.boilerplate = this.boilerplate;
     }
 
     /**
@@ -191,10 +192,6 @@ public class TableGenerator extends javax.swing.JFrame implements ActionListener
         }
     }
 
-    public void startOver() {
-        txtDoc.setText(boilerplate);
-    }
-
     public void createTable() {
         if (rowText.getText().length() == 0) {
             return;
@@ -210,16 +207,16 @@ public class TableGenerator extends javax.swing.JFrame implements ActionListener
             //Nested for loop, starting with every row
             int row = Integer.parseInt(rowText.getText());
             int col = Integer.parseInt(colText.getText());
-            for (int r = 1;r<=row;r++){
+            for (int r = 1; r <= row; r++) {
                 System.out.println(r);
                 System.out.println(row);
                 //Inside loop for every column in this particular row
                 sb.append("\t<tr>\n");
-                for (int c =1;c<=col;c++){
-                    String option = JOptionPane.showInputDialog("Please enter the "+numberFormatter(c)
-                            +" element of the "+numberFormatter(r)+" row.");
+                for (int c = 1; c <= col; c++) {
+                    String option = JOptionPane.showInputDialog("Please enter the " + numberFormatter(c)
+                            + " element of the " + numberFormatter(r) + " row.");
                     sb.append("\t\t<td>");
-                    sb.append(""+option);
+                    sb.append("" + option);
                     sb.append("</td>\n");
                 }
                 sb.append("\t</tr>\n");
@@ -232,24 +229,9 @@ public class TableGenerator extends javax.swing.JFrame implements ActionListener
         }
     }
 
-    public void save() {
-        JFileChooser chooser = new JFileChooser();
-        int retValue = chooser.showSaveDialog(this);
-        if (retValue == JFileChooser.APPROVE_OPTION) {
-            File f = chooser.getSelectedFile();
-            try {
-                FileOutputStream fos = new FileOutputStream(f);
-                String str = txtDoc.getText();
-                fos.write(str.getBytes());
-                fos.close();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Unable to save file.");
-            }
-        }
-    }
     // Properly formats numbers in the style of
     // 1st 2nd 3rd 4th ect
-    public String numberFormatter(int i){
+    public String numberFormatter(int i) {
         String append;
         switch (i) {
             case 1:
@@ -269,8 +251,4 @@ public class TableGenerator extends javax.swing.JFrame implements ActionListener
         return result;
     }
 
-    private void add() {
-        parent.addText(txtDoc.getText());
-        this.dispose();       
-        }
 }

@@ -154,9 +154,9 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent ae) {
         Object source = ae.getSource();
-        if (source==ImageButton) new ImageGenerator().setVisible(true);
+        if (source==ImageButton) new ImageGenerator(this).setVisible(true);
         else if (source==JumpListButton) new JumpListGenerator(this).setVisible(true);
-        else if (source==LinkButton) new LinkGenerator().setVisible(true);
+        else if (source==LinkButton) new LinkGenerator(this).setVisible(true);
         else if (source==SaveButton) addText("Test");
         else if (source==TableButton) new TableGenerator(this).setVisible(true);
     }

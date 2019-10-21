@@ -16,19 +16,19 @@ import java.io.*;
  *
  * @author 00220682
  */
-public class JumpListGenerator extends javax.swing.JFrame implements ActionListener {
-    private MainGUI parent;
-    private final String boilerplate = "<!DOCTYPE html>\n" +
-"<html>\n" +
-"    <head>\n" +
-"        <title>Example Jump List</title>\n" +
-"    </head>\n" +
-"    <body>\n" +
-"        <select onChange=\"location.href=this[selectedIndex].value\">\n" +
-"            \n" +
-"        </select>\n" +
-"    </body>\n" +
-"</html>";
+public class JumpListGenerator extends JFrameHTMLGen implements ActionListener {
+    
+    private final String boilerplate = "<!DOCTYPE html>\n"
+            + "<html>\n"
+            + "    <head>\n"
+            + "        <title>Example Jump List</title>\n"
+            + "    </head>\n"
+            + "    <body>\n"
+            + "        <select onChange=\"location.href=this[selectedIndex].value\">\n"
+            + "            \n"
+            + "        </select>\n"
+            + "    </body>\n"
+            + "</html>";
 
     /**
      * Creates new form JumpListGenerator
@@ -41,11 +41,13 @@ public class JumpListGenerator extends javax.swing.JFrame implements ActionListe
         btnSave.addActionListener(this);
         btnFin.addActionListener(this);
     }
-    
-        public JumpListGenerator(MainGUI parent) {
-            this();
-            this.parent = parent;
-            
+
+    //Sets up the references references
+    public JumpListGenerator(MainGUI parent) {
+        this();
+        this.parent = parent;
+        super.txtDoc = this.txtDoc;
+        super.boilerplate = this.boilerplate;
     }
 
     /**
@@ -170,58 +172,34 @@ public class JumpListGenerator extends javax.swing.JFrame implements ActionListe
     @Override
     public void actionPerformed(ActionEvent ae) {
         Object source = ae.getSource();
-        if(source==btnReset){
+        if (source == btnReset) {
             startOver();
-        }else if(source==btnAdd){
+        } else if (source == btnAdd) {
             addOption();
-        }else if(source==btnSave){
+        } else if (source == btnSave) {
             save();
-        }
-        else if (source==btnFin){
+        } else if (source == btnFin) {
             add();
         }
     }
-    
-    public void startOver(){
-        txtDoc.setText(boilerplate);
-    }
-    
-    public void addOption(){
-        if(txtDisplay.getText().length()==0)
+
+    public void addOption() {
+        if (txtDisplay.getText().length() == 0) {
             return;
-        try{
+        }
+        try {
             StringBuilder sb = new StringBuilder(64);
             sb.append("<option value=\"");
             sb.append(txtURL.getText());
             sb.append("\">");
             sb.append(txtDisplay.getText());
             sb.append("</option>\n\n");
-            txtDoc.insert(sb.toString(), txtDoc.getText().indexOf("</select>")-1);
+            txtDoc.insert(sb.toString(), txtDoc.getText().indexOf("</select>") - 1);
             txtURL.setText("");
             txtDisplay.setText("");
-        }catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Unable to add option - missing </select>");
         }
     }
-    
-    public void save(){
-        JFileChooser chooser = new JFileChooser();
-        int retValue = chooser.showSaveDialog(this);
-        if(retValue == JFileChooser.APPROVE_OPTION){
-            File f = chooser.getSelectedFile();
-            try{
-                FileOutputStream fos = new FileOutputStream(f);
-                String str = txtDoc.getText();
-                fos.write(str.getBytes());
-                fos.close();
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(this,"Unable to save file.");
-            }
-        }
-    }
-    
-    private void add() {
-        parent.addText(txtDoc.getText());
-        this.dispose();       
-        }
+
 }

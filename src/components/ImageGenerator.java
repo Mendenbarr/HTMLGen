@@ -17,9 +17,11 @@ import javax.swing.JOptionPane;
  *
  * @author byronnajera
  */
-public class ImageGenerator extends javax.swing.JFrame implements ActionListener{
-    private final String imagePlate= "";
-        /*    "<!DOCTYPE html>\n" +
+public class ImageGenerator extends JFrameHTMLGen implements ActionListener {
+
+    private final String boilerplate = "";
+
+    /*    "<!DOCTYPE html>\n" +
 "<html>\n" +
 "    <head>\n" +
 "        <title>Image tag generator</title>\n" +
@@ -30,19 +32,24 @@ public class ImageGenerator extends javax.swing.JFrame implements ActionListener
 "        </select>\n" +
 "    </body>\n" +
 "</html>"; */
-        
-    
-
     /**
      * Creates new form imageGUI
      */
     public ImageGenerator() {
         initComponents();
-         txtDoc.setText(imagePlate);
+        txtDoc.setText(boilerplate);
         btnReset.addActionListener(this);
         btnAdd.addActionListener(this);
         btnSave.addActionListener(this);
-        
+
+    }
+
+    //Sets up the references references
+    public ImageGenerator(MainGUI parent) {
+        this();
+        this.parent = parent;
+        super.txtDoc = this.txtDoc;
+        super.boilerplate = this.boilerplate;
     }
 
     /**
@@ -181,61 +188,37 @@ public class ImageGenerator extends javax.swing.JFrame implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        if(source==btnReset){
+        if (source == btnReset) {
             startOver();
-        }else if(source==btnAdd){
+        } else if (source == btnAdd) {
             addOption();
-        }else if(source==btnSave){
+        } else if (source == btnSave) {
             save();
         }
-        
+
     }
-    public void startOver(){
-        txtDoc.setText(imagePlate);
-    }
-    
-    public void addOption(){
-        if(txtURL.getText().length()==0)
+
+    public void addOption() {
+        if (txtURL.getText().length() == 0) {
             return;
-        try{
+        }
+        try {
             StringBuilder sb = new StringBuilder(64);
             sb.append("\n<img href=\"");
             sb.append(txtURL.getText());
             sb.append("\" alt=\"");
             sb.append(txtAlt.getText());
-            sb.append("\"/>\n\n"); 
+            sb.append("\"/>\n\n");
             //I changed what it's looking for, from </option> to </body>
             //As well as changed the handler
-          //  txtDoc.insert(sb.toString(), txtDoc.getText().indexOf("</body>")-1);
-          txtDoc.insert(sb.toString(), 0);
+            //  txtDoc.insert(sb.toString(), txtDoc.getText().indexOf("</body>")-1);
+            txtDoc.insert(sb.toString(), 0);
             txtURL.setText("");
             txtAlt.setText("");
-        
-        }catch(Exception e){
+
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Unable to add option - missing </body>");
         }
     }
-    
-    public void save(){
-         JFileChooser chooser = new JFileChooser();
-        
-        int retValue = chooser.showSaveDialog(this);
-        if(retValue==JFileChooser.APPROVE_OPTION){
-            File f = chooser.getSelectedFile();
-            try{
-                FileOutputStream fos = new FileOutputStream(f);
-                String str = txtDoc.getText();
-                fos.write(str.getBytes());
-                //turns the string into binary data
-                fos.close();
-                //if you don't close the output stream, you can run ou of memory
-                
-                
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(this, "Unable to save file");
-                
-            }
-    }
- 
-    }
+
 }
