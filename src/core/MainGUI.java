@@ -11,12 +11,15 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 
 /**
  *
  * @author 01048750
  */
-public class MainGUI extends JFrameHTMLGen implements ActionListener {
+public class MainGUI extends JFrameHTMLGen implements ActionListener, DocumentListener {
 
     /**
      * Creates new form MainGUI
@@ -31,10 +34,14 @@ public class MainGUI extends JFrameHTMLGen implements ActionListener {
         super.txtDoc = this.txtDoc;
         super.boilerplate = importHTML("src\\Examples\\template.html");
         super.startOver();
-        
+        displayHTML();
+        // Adds a document listener so that the HTML preview updates on changes
+        Document doc = txtDoc.getDocument();
+        doc.addDocumentListener(this);
     }
-
     
+    
+
     //Imports the base file template from a html file with name name.
     private String importHTML(String name) {
         System.out.println("Running importHTML");
@@ -68,8 +75,11 @@ public class MainGUI extends JFrameHTMLGen implements ActionListener {
         ImageButton = new javax.swing.JButton();
         TableButton = new javax.swing.JButton();
         JumpListButton = new javax.swing.JButton();
+        jSplitPane1 = new javax.swing.JSplitPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDoc = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jEditorPane1 = new javax.swing.JEditorPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HTML Generator");
@@ -113,13 +123,26 @@ public class MainGUI extends JFrameHTMLGen implements ActionListener {
 
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
 
+        jSplitPane1.setResizeWeight(0.5);
+
         txtDoc.setColumns(20);
         txtDoc.setRows(5);
         txtDoc.setTabSize(4);
         txtDoc.setWrapStyleWord(true);
         jScrollPane1.setViewportView(txtDoc);
 
-        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        jSplitPane1.setLeftComponent(jScrollPane1);
+
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(166, 96));
+
+        jEditorPane1.setEditable(false);
+        jEditorPane1.setContentType("text/html"); // NOI18N
+        jEditorPane1.setPreferredSize(new java.awt.Dimension(166, 96));
+        jScrollPane2.setViewportView(jEditorPane1);
+
+        jSplitPane1.setRightComponent(jScrollPane2);
+
+        getContentPane().add(jSplitPane1, java.awt.BorderLayout.CENTER);
 
         setSize(new java.awt.Dimension(1087, 841));
         setLocationRelativeTo(null);
@@ -170,7 +193,10 @@ public class MainGUI extends JFrameHTMLGen implements ActionListener {
     private javax.swing.JButton LinkButton;
     private javax.swing.JButton SaveButton;
     private javax.swing.JButton TableButton;
+    private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTextArea txtDoc;
     // End of variables declaration//GEN-END:variables
@@ -189,10 +215,30 @@ public class MainGUI extends JFrameHTMLGen implements ActionListener {
         } else if (source == TableButton) {
             new TableGenerator(this).setVisible(true);
         }
+        displayHTML();
     }
 
     // Inserts text at the current curser position
     public void addText(String text) {
         txtDoc.insert(text, txtDoc.getCaretPosition());
+    }
+
+    public void displayHTML() {
+        jEditorPane1.setText(txtDoc.getText());
+    }
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        displayHTML();
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        displayHTML();
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+        displayHTML();
     }
 }
